@@ -5,7 +5,32 @@ include('../model/usuarioModel.php');
    $usuarioObj = new usuarioModel();
    $paciente = $usuarioObj->show($_GET['id']);
 
+if(isset($_POST) && !empty($_POST)){
+
+   $insertarUsuario = $usuarioObj->update($_POST);
+   
+
+   if ($insertarUsuario){
+
+    $mensaje = '<div class="alert alert-success" role="alert"> Paciente Actulizado </div>';
+    
+    
+   }else {
+    $mensaje = '<div class="alert alert-danger" role="alert"> Paciente No se pudo Actualizar </div>';
+   }
+}
+
+
 ?>
+
+<div class="container-sm">
+  <?php
+  if (isset($mensaje)) {
+    echo $mensaje;
+  }
+  
+  ?>
+
 <div class="container-sm">
 <h2>Editar Paciente</h2>
 <form method="POST" enctype="multipart/form-data">
@@ -14,7 +39,8 @@ include('../model/usuarioModel.php');
       Nombre
     </label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="Name" name="nombre" placeholder="Nombre" value="<?= $paciente[1]?>">
+      <input type="hidden" name="id" value = "<?= $paciente[0]?>">
+      <input type="text" class="form-control" id="Name" name="nombre" placeholder="nombre" value="<?= $paciente[1]?>">
     </div>
   </div>
   </br>
@@ -23,7 +49,7 @@ include('../model/usuarioModel.php');
       Email
     </label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?= $paciente[3]?>" >
+      <input type="email" class="form-control" id="email" name="email" placeholder="email" value="<?= $paciente[3]?>" >
     </div>
   </div>
   </br>
@@ -41,19 +67,22 @@ include('../model/usuarioModel.php');
       <legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
       <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="sexo" id="hombre" value="hombre" <? ($paciente[2] == "hombre")  ?  print 'Hola mundo' : ?> > 
+          <input class="form-check-input" type="radio" name="sexo" id="hombre" value="hombre" <?php if ($paciente[2] == "hombre") {
+           echo "checked" ;
+          } ?> > 
           <label class="form-check-label" for="gridRadios1">
             Hombre
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="sexo" id="mujer" value="mujer">
+          <input class="form-check-input" type="radio" name="sexo" id="mujer" value="mujer" <?php if ($paciente[2] == "mujer") {echo "checked" ;} ?>>
           <label class="form-check-label" for="gridRadios2">
             Mujer
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="sexo" id="otro" value="otro">
+          <input class="form-check-input" type="radio" name="sexo" id="otro" value="otro" <?php if ($paciente[2] == "otro") {
+           echo "checked" ;} ?>>
           <label class="form-check-label" for="gridRadios2">
             Otro
           </label>
