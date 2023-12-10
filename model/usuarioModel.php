@@ -3,18 +3,19 @@
         private $PDO;
         public function __construct()
         {
-            require_once("C:/xampp/htdocs/Registro-control-informaci-n/config/ConectionBD.php");
+            require_once("C:/xampp/htdocs/Actividad-4/config/ConectionBD.php");
             $con = new db();
             $this->PDO = $con->conexion();
         }
-        public function insertar($nombre,$email,$telefono,$sexo,$cita){
-            $stament = $this->PDO->prepare("INSERT INTO usuario VALUES(null,:nombre,:email,:telefono,:sexo,:cita)");
-            $stament->bindParam(":nombre",$nombre);
-            $stament->bindParam(":email",$email);
-            $stament->bindParam(":telefono",$telefono);
-            $stament->bindParam(":sexo",$sexo);
-            $stament->bindParam(":cita",$cita);
+        public function insertar($params){
+            $stament = $this->PDO->prepare("INSERT INTO usuario VALUES(null,:Nombre,:Sexo,:Correo,:telefono,:cita)");
+            $stament->bindParam(":Nombre",$params['nombre']);
+            $stament->bindParam(":Correo",$params['email']);
+            $stament->bindParam(":telefono",$params['telefono']);
+            $stament->bindParam(":Sexo",$params['sexo']);
+            $stament->bindParam(":cita",$params['cita']);
             return ($stament->execute()) ? $this->PDO->lastInsertId() : false ;
+        
 
         }
         public function index(){
@@ -23,7 +24,7 @@
         }
 
         public function show($id){
-            $stament = $this->PDO->prepare("SELECT * FROM  where id = :id limit 1");
+            $stament = $this->PDO->prepare("SELECT * FROM usuario where id = :id limit 1");
             $stament->bindParam(":id",$id);
             return ($stament->execute()) ? $stament->fetch() : false ;
         }

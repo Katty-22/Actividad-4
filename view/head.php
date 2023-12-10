@@ -1,5 +1,5 @@
 <?php 
-require('C:/xampp/htdocs/Registro-control-informaci-n/config/config.php');
+require('C:/xampp/htdocs/Actividad-4/config/config.php');
 
 ?>
 

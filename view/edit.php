@@ -1,5 +1,10 @@
 <?php
 include('head.php');
+include('../model/usuarioModel.php');
+
+   $usuarioObj = new usuarioModel();
+   $paciente = $usuarioObj->show($_GET['id']);
+
 ?>
 <div class="container-sm">
 <h2>Editar Paciente</h2>
@@ -9,7 +14,7 @@ include('head.php');
       Nombre
     </label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="Name" name="nombre" placeholder="Nombre">
+      <input type="text" class="form-control" id="Name" name="nombre" placeholder="Nombre" value="<?= $paciente[1]?>">
     </div>
   </div>
   </br>
@@ -18,7 +23,7 @@ include('head.php');
       Email
     </label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+      <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?= $paciente[3]?>" >
     </div>
   </div>
   </br>
@@ -27,28 +32,28 @@ include('head.php');
       Telefono
     </label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" id="telefono" name="telefono" placeholder=" telefono">
+      <input type="number" class="form-control" id="telefono" name="telefono" placeholder=" telefono" value="<?= $paciente[4]?>"  >
     </div>
   </div>
 </br>
-  <fieldset class="form-group">
+<fieldset class="form-group">
     <div class="row">
       <legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
       <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="hombre" id="hombre" value="option1">
+          <input class="form-check-input" type="radio" name="sexo" id="hombre" value="hombre" <? ($paciente[2] == "hombre")  ?  print 'Hola mundo' : ?> > 
           <label class="form-check-label" for="gridRadios1">
             Hombre
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="mujer" id="mujer" value="option2">
+          <input class="form-check-input" type="radio" name="sexo" id="mujer" value="mujer">
           <label class="form-check-label" for="gridRadios2">
             Mujer
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="otro" id="otro" value="option2">
+          <input class="form-check-input" type="radio" name="sexo" id="otro" value="otro">
           <label class="form-check-label" for="gridRadios2">
             Otro
           </label>
@@ -62,7 +67,7 @@ include('head.php');
       Fecha Cita
     </label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="cita" name="cita" placeholder=" telefono">
+      <input type="date" class="form-control" id="cita" name="cita" placeholder=" telefono" value="<?= $paciente[5]?>">
     </div>
   </div>
 

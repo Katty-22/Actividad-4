@@ -1,7 +1,31 @@
 <?php
 include('head.php');
+include('../model/usuarioModel.php');
+
+if(isset($_POST) && !empty($_POST)){
+   $usuario  =  new usuarioModel();
+
+   $insertarUsuario = $usuario->insertar($_POST);
+   
+
+   if ($insertarUsuario){
+
+    $mensaje = '<div class="alert alert-success" role="alert"> Paciente Guardado </div>';
+    
+    
+   }else {
+    $mensaje = '<div class="alert alert-danger" role="alert"> Paciente No se pudo Guardar </div>';
+   }
+}
+
 ?>
 <div class="container-sm">
+  <?php
+  if (isset($mensaje)) {
+    echo $mensaje;
+  }
+  
+  ?>
 <h2>Crear Paciente</h2>
 <form method="POST" enctype="multipart/form-data">
   <div class="form-group row">
@@ -27,7 +51,7 @@ include('head.php');
       Telefono
     </label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" id="telefono" name="telefono" placeholder=" telefono">
+      <input type="number" class="form-control" id="telefono" name="telefono" placeholder= "telefono">
     </div>
   </div>
 </br>
@@ -36,19 +60,19 @@ include('head.php');
       <legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
       <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="hombre" id="hombre" value="option1">
+          <input class="form-check-input" type="radio" name="sexo" id="hombre" value="hombre">
           <label class="form-check-label" for="gridRadios1">
             Hombre
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="mujer" id="mujer" value="option2">
+          <input class="form-check-input" type="radio" name="sexo" id="mujer" value="mujer">
           <label class="form-check-label" for="gridRadios2">
             Mujer
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="otro" id="otro" value="option2">
+          <input class="form-check-input" type="radio" name="sexo" id="otro" value="otro">
           <label class="form-check-label" for="gridRadios2">
             Otro
           </label>
